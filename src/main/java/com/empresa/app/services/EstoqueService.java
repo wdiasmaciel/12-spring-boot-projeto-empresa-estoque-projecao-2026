@@ -50,7 +50,7 @@ public class EstoqueService {
     }
 
     @Transactional(readOnly = true)
-    public List<EstoqueProdutoFilialProjection> findAllProjecoesNative() {
+    public List<EstoqueProdutoFilialProjection> findAllProjecoesQueryNative() {
         return estoqueRepository.findAllEstoqueProjecaoQueryNative();
     }
 

@@ -32,9 +32,9 @@ public class EstoqueController {
         return estoqueService.findAllProjecoesJpql();
     }
 
-    @GetMapping("/projecoes/native")
-    public List<EstoqueProdutoFilialProjection> findAllProjecoesNative() {
-        return estoqueService.findAllProjecoesNative();
+    @GetMapping("/projecoes/querynative")
+    public List<EstoqueProdutoFilialProjection> findAllProjecoesQueryNative() {
+        return estoqueService.findAllProjecoesQueryNative();
     }
 
     @PostMapping

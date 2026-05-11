@@ -1,11 +1,10 @@
 package com.empresa.app.projections;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public interface EstoqueProdutoFilialProjection {
 
-    UUID getIdProduto();
+    String getIdProduto();
 
     String getNomeProduto();
 

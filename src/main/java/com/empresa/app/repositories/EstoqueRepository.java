@@ -13,7 +13,7 @@ public interface EstoqueRepository extends JpaRepository<EstoqueModel, EstoqueMo
 
     // JPQL (Java Persistence Query Language) consulta utilizando entidades e seus atributos
     @Query("""
-        select e.produtoModel.id as idProduto,
+        select str(e.produtoModel.id) as idProduto,
                e.produtoModel.nome as nomeProduto,
                e.filialModel.cnpj as cnpjFilial,
                e.filialModel.nome as nomeFilial,
@@ -26,7 +26,7 @@ public interface EstoqueRepository extends JpaRepository<EstoqueModel, EstoqueMo
 
     // Query nativa SQL para retorno da mesma projeção a partir das tabelas do banco
     @Query(value = """
-        select e.id_produto as idProduto,
+        select cast(e.id_produto as varchar) as idProduto,
                p.nome as nomeProduto,
                e.cnpj_filial as cnpjFilial,
                f.nome as nomeFilial,
