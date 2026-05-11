@@ -12,6 +12,7 @@ import com.empresa.app.dtos.EstoqueDto;
 import com.empresa.app.models.EstoqueModel;
 import com.empresa.app.models.EstoqueModelPk;
 import com.empresa.app.mappers.EstoqueMapper;
+import com.empresa.app.projections.EstoqueProdutoFilialProjection;
 import com.empresa.app.repositories.EstoqueRepository;
 import com.empresa.app.repositories.ProdutoRepository;
 import com.empresa.app.repositories.FilialRepository;
@@ -41,6 +42,16 @@ public class EstoqueService {
                 .map(EstoqueMapper::toDto) // Converte cada EstoqueModel para EstoqueDto.
                                            // EstoqueMapper::toDto é uma "method reference".
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<EstoqueProdutoFilialProjection> findAllProjecoesJpql() {
+        return estoqueRepository.findAllEstoqueProjecaoJpql();
+    }
+
+    @Transactional(readOnly = true)
+    public List<EstoqueProdutoFilialProjection> findAllProjecoesNative() {
+        return estoqueRepository.findAllEstoqueProjecaoQueryNative();
     }
 
     @Transactional(readOnly = true)

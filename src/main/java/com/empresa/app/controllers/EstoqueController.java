@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import com.empresa.app.dtos.EstoqueDto;
+import com.empresa.app.projections.EstoqueProdutoFilialProjection;
 import com.empresa.app.services.EstoqueService;
 
 @RestController
@@ -24,6 +25,16 @@ public class EstoqueController {
     @GetMapping("/idcnpj")
     public EstoqueDto findByIdCnpj(@RequestParam UUID id, @RequestParam String cnpj) {
         return estoqueService.findById_produdtoAndCnpj_filial(id, cnpj);
+    }
+
+    @GetMapping("/projecoes/jpql")
+    public List<EstoqueProdutoFilialProjection> findAllProjecoesJpql() {
+        return estoqueService.findAllProjecoesJpql();
+    }
+
+    @GetMapping("/projecoes/native")
+    public List<EstoqueProdutoFilialProjection> findAllProjecoesNative() {
+        return estoqueService.findAllProjecoesNative();
     }
 
     @PostMapping
