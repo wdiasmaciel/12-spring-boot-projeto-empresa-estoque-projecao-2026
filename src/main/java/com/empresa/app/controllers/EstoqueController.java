@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import com.empresa.app.dtos.EstoqueDto;
@@ -25,6 +26,11 @@ public class EstoqueController {
     @GetMapping("/idcnpj")
     public EstoqueDto findByIdCnpj(@RequestParam UUID id, @RequestParam String cnpj) {
         return estoqueService.findById_produdtoAndCnpj_filial(id, cnpj);
+    }
+
+    @GetMapping("/namedquery/{cnpjFilial}")
+    public List<EstoqueDto> findByFilialCnpjNamedQuery(@PathVariable String cnpjFilial) {
+        return estoqueService.findByFilialCnpjNamedQuery(cnpjFilial);
     }
 
     @GetMapping("/projecoes/jpql")

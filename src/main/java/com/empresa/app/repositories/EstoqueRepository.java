@@ -12,6 +12,10 @@ import java.util.List;
 
 public interface EstoqueRepository extends JpaRepository<EstoqueModel, EstoqueModelPk> {
 
+    //Named Query definida na entidade EstoqueModel.
+    @Query(name = "EstoqueModel.findByFilialCnpjNamedQuery") 
+    List<EstoqueModel> findByFilialCnpjNamedQuery(@Param("cnpjFilial") String cnpjFilial);
+
     // JPQL (Java Persistence Query Language) consulta utilizando entidades e seus atributos
     @Query("""
         select str(e.produtoModel.id) as idProduto,

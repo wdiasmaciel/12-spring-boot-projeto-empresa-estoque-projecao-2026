@@ -2,6 +2,7 @@ package com.empresa.app.services;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +43,15 @@ public class EstoqueService {
                 .map(EstoqueMapper::toDto) // Converte cada EstoqueModel para EstoqueDto.
                                            // EstoqueMapper::toDto é uma "method reference".
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<EstoqueDto> findByFilialCnpjNamedQuery(@Param("cnpjFilial") String cnpjFilial) {
+        return estoqueRepository.findByFilialCnpjNamedQuery(cnpjFilial).stream()
+                .map(EstoqueMapper::toDto) // Converte o EstoqueModel para EstoqueDto apenas se o valor estiver
+                                           // presente.
+                                           // EstoqueMapper::toDto é uma "method reference".
+                .toList(); 
     }
 
     @Transactional(readOnly = true)

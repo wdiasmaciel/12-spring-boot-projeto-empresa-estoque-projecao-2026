@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +16,13 @@ import lombok.*;
 
 import java.util.UUID;
 import java.time.LocalDate;
+
+@NamedQueries({
+    @NamedQuery(
+        name = "EstoqueModel.findByFilialCnpjNamedQuery",
+        query = "select e from EstoqueModel e where e.filialModel.cnpj = :cnpjFilial"
+    )
+})
 
 @Entity
 @Data
