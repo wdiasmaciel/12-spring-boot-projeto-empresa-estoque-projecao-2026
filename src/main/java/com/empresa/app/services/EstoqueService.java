@@ -46,12 +46,17 @@ public class EstoqueService {
 
     @Transactional(readOnly = true)
     public List<EstoqueProdutoFilialProjection> findAllProjecoesJpql() {
-        return estoqueRepository.findAllEstoqueProjecaoJpql();
+        return estoqueRepository.findAllEstoqueProjecoesJpql();
     }
 
     @Transactional(readOnly = true)
     public List<EstoqueProdutoFilialProjection> findAllProjecoesQueryNative() {
-        return estoqueRepository.findAllEstoqueProjecaoQueryNative();
+        return estoqueRepository.findAllEstoqueProjecoesQueryNative();
+    }
+
+    @Transactional(readOnly = true)
+    public List<EstoqueProdutoFilialProjection> findByFilialCnpjProjecoesQueryNative(String cnpjFilial) {
+        return estoqueRepository.findByFilialCnpjProjecoesQueryNative(cnpjFilial);
     }
 
     @Transactional(readOnly = true)

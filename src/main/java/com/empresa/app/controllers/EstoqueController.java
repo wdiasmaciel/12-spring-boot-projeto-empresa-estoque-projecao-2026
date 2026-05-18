@@ -37,6 +37,11 @@ public class EstoqueController {
         return estoqueService.findAllProjecoesQueryNative();
     }
 
+    @GetMapping("/projecoes/{cnpj}")
+    public List<EstoqueProdutoFilialProjection> findByFilialCnpjProjecoesQueryNative(@PathVariable String cnpj) {
+        return estoqueService.findByFilialCnpjProjecoesQueryNative(cnpj);
+    }
+
     @PostMapping
     public EstoqueDto create(@RequestBody @Valid EstoqueDto estoqueDto) {
         return estoqueService.save(estoqueDto);

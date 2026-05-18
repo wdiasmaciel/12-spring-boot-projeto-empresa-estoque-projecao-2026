@@ -2,6 +2,7 @@ package com.empresa.app.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.empresa.app.models.EstoqueModel;
 import com.empresa.app.models.EstoqueModelPk;
@@ -21,8 +22,9 @@ public interface EstoqueRepository extends JpaRepository<EstoqueModel, EstoqueMo
                e.quantidade as quantidade,
                e.validade as validade
         from EstoqueModel e
+        order by e.filialModel.cnpj, e.produtoModel.nome
     """)
-    List<EstoqueProdutoFilialProjection> findAllEstoqueProjecaoJpql();
+    List<EstoqueProdutoFilialProjection> findAllEstoqueProjecoesJpql();
 
     // Query nativa SQL para retorno da mesma projeção a partir das tabelas do banco
     @Query(value = """
@@ -36,6 +38,23 @@ public interface EstoqueRepository extends JpaRepository<EstoqueModel, EstoqueMo
           from estoque e
           join produto p on e.id_produto = p.id
           join filial f on e.cnpj_filial = f.cnpj
+          order by e.cnpj_filial, p.nome
     """, nativeQuery = true)
-    List<EstoqueProdutoFilialProjection> findAllEstoqueProjecaoQueryNative();
+    List<EstoqueProdutoFilialProjection> findAllEstoqueProjecoesQueryNative();
+
+    @Query(value = """
+        select cast(e.id_produto as varchar) as idProduto,
+               p.nome as nomeProduto,
+               e.cnpj_filial as cnpjFilial,
+               f.nome as nomeFilial,
+               e.preco as preco,
+               e.quantidade as quantidade,
+               e.validade as validade
+          from estoque e
+          join produto p on e.id_produto = p.id
+          join filial f on e.cnpj_filial = f.cnpj
+          where f.cnpj = :cnpjFilial
+          order by p.nome
+    """, nativeQuery = true)
+    List<EstoqueProdutoFilialProjection> findByFilialCnpjProjecoesQueryNative(@Param("cnpjFilial") String cnpjFilial);
 }
